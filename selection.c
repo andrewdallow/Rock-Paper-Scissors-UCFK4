@@ -28,3 +28,9 @@ void show_choice(void)
 	display_character (character);
 
 }
+
+// perhaps break out the calls for each player to select here??
+void get_selection(void)
+{
+	
+}
