@@ -1,6 +1,7 @@
 #include "navswitch.h"
 #include "tinygl.h"
-#include "RPS_shapes.h"
+
+char character = 'R';
 
 void display_character (char character)
 {
@@ -10,11 +11,20 @@ void display_character (char character)
     tinygl_text (buffer);
 }
 
-char character = 'R';
+char get_character (void)
+{
+	return character;
+}
+
+void set_character (char new_char)
+{
+	character = new_char;
+}
 
 void show_choice(void) 
 {	
-	tinygl_font_set (&RPS_shapes);
+	//tinygl_font_set (&RPS_shapes);
+	//tinygl_font_set (&font5x7_1);
 	
 	if (navswitch_push_event_p (NAVSWITCH_NORTH))
 		character = 'R';
@@ -28,3 +38,5 @@ void show_choice(void)
 	display_character (character);
 
 }
+
+
