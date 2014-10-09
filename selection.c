@@ -39,4 +39,8 @@ void show_choice(void)
 
 }
 
-
+// perhaps break out the calls for each player to select here??
+//void get_selection(void)
+//{
+//	
+//}

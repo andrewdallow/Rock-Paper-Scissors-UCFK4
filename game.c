@@ -73,7 +73,7 @@ int main (void)
 		} else if (player1_choice == 0)
 		{ // otherwise show selection
 			show_choice ();
-		}
+		} 
 		
 		
 		//P1 chosen, send to P2
@@ -89,29 +89,30 @@ int main (void)
 		}
 		
 		// Make decision on who wins
-		if (player1_choice != '\0' && player2_choice != '\0')
+		if (player1_choice != '\0' && player2_choice != '\0' && !is_game_over)
 		{
 			if (player1_choice == player2_choice)
 			{
-				tinygl_text ("Draw");
-				is_game_over = 1;
-				
-			} else if (player1_choice == ROCK && player2_choice == SCISSORS)
+				tinygl_text ("Draw"); // do we need to update tinygl here?
+				is_game_over = 1;				
+			} 
+			else if (player1_choice == ROCK && player2_choice == SCISSORS)
+			{
+				tinygl_text ("WIN"); 
+				is_game_over = 1;				
+			} 
+			else if (player1_choice == SCISSORS && player2_choice == PAPER)
 			{
 				tinygl_text ("WIN");
-				is_game_over = 1;
-				
-			} else if (player1_choice == SCISSORS && player2_choice == PAPER)
+				is_game_over = 1;				
+			} 
+			else if (player1_choice == PAPER && player2_choice == ROCK) 
 			{
 				tinygl_text ("WIN");
-				is_game_over = 1;
-				
-			} else if (player1_choice == PAPER && player2_choice == ROCK) 
+				is_game_over = 1;				
+			} 
+			else 
 			{
-				tinygl_text ("WIN");
-				is_game_over = 1;
-				
-			} else {
 				tinygl_text ("LOSE");
 				is_game_over = 1;
 			}
@@ -129,5 +130,6 @@ int main (void)
 		
     }
     
+
     return 0;
 }
