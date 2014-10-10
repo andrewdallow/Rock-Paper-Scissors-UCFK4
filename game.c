@@ -3,6 +3,7 @@
 #include "navswitch.h"
 #include "tinygl.h"
 #include "run.h"
+#include "ir_uart.h"
 
 #define PACER_RATE 500
 
