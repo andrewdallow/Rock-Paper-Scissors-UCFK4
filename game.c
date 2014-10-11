@@ -23,7 +23,7 @@ int main (void)
 		navswitch_update ();
         run_game();		
 		
-		communicate_choices();
+		send_choices();
 		
 		make_decision();
     }

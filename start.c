@@ -11,17 +11,18 @@
 
 void game_init (void)
 {
-	char* start_msg = "Press start";
-	tinygl_init (LOOP_RATE);      
-    tinygl_font_set (&font5x7_1);
+    char* start_msg = "Press start";
+    tinygl_init (LOOP_RATE);      
+    //tinygl_font_set (&font5x7_1);
+    tinygl_font_set (&font3x5_1);
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
+    tinygl_text_dir_set (TINYGL_TEXT_DIR_ROTATE);
     tinygl_text_speed_set (MESSAGE_RATE);
     
     tinygl_text (start_msg);
-    ir_uart_init ();
 }
 
-int is_player_ready (void) 
+uint8_t is_player_ready (void) 
 {
 	char ready_msg;
 	if (ir_uart_read_ready_p ())
