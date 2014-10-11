@@ -1,7 +1,17 @@
+/**	 @file   selection.c
+     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: ??
+     @date   11 Oct 2014
+     @brief  Maps Navswitch buttons to Rock, Paper, or Scissors symbols 
+			 and displays them on the led matrix. 
+ */
+
+
 #include "navswitch.h"
 #include "tinygl.h"
 
-char character = 'R';
+#include "selection.h"
+
+static char character = 'R';
 
 void display_character (char character)
 {
@@ -19,13 +29,20 @@ char get_choice(void)
 		
 		
 	if (navswitch_push_event_p (NAVSWITCH_NORTH))
+	{
 		character = 'R';
+	}
 
 	if (navswitch_push_event_p (NAVSWITCH_WEST))
+	{
 		character = 'P';
+	}
 
 	if (navswitch_push_event_p (NAVSWITCH_SOUTH))
+	{
 		character = 'S';
+	}
+	
 	display_character (character);
 
 	return character;
