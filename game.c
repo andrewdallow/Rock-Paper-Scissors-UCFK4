@@ -1,4 +1,4 @@
-/**	 @file   game.c
+/**  @file   game.c
      @author Andrew Dallow - ID: 56999204, Dan Orr - ID: ??
      @date   11 Oct 2014
      @brief  A simple 2 player game of Rock, Paper, Sissors. 

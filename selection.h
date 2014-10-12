@@ -1,4 +1,4 @@
-/**	 @file   selection.h
+/**  @file   selection.h
      @author Andrew Dallow - ID: 56999204, Dan Orr - ID: ??
      @date   11 Oct 2014
      @brief  Interface for Maping Navswitch buttons to Rock, Paper, or 

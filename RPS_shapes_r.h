@@ -1,6 +1,6 @@
 /** @file    RPS_shapes_r.h
     @author  fontgen
-    @date    07 Oct 2014
+    @date    08 Oct 2014
 
     @defgroup RPS_shapes_r  This is a 5x7 set of Rock, Paper, Scissors shapes
 
