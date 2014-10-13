@@ -14,13 +14,13 @@ all: game
 
 
 # Compile: create object files from C source files.
-game-test.o: game.c ../../drivers/display.h ../../drivers/navswitch.h ../../drivers/test/system.h ../../utils/font.h ../../utils/pacer.h ../../utils/tinygl.h run.h
+game-test.o: game.c ../../drivers/display.h ../../drivers/navswitch.h ../../drivers/test/ir_uart.h ../../drivers/test/system.h ../../utils/font.h ../../utils/pacer.h ../../utils/tinygl.h run.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 run-test.o: run.c ../../drivers/display.h ../../drivers/navswitch.h ../../drivers/test/ir_uart.h ../../drivers/test/system.h ../../fonts/font5x7_1.h ../../utils/font.h ../../utils/pacer.h ../../utils/tinygl.h run.h selection.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-selection-test.o: selection.c ../../drivers/display.h ../../drivers/navswitch.h ../../drivers/test/system.h ../../utils/font.h ../../utils/tinygl.h
+selection-test.o: selection.c ../../drivers/display.h ../../drivers/navswitch.h ../../drivers/test/system.h ../../utils/font.h ../../utils/tinygl.h RPS_shapes.h selection.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 display-test.o: ../../drivers/display.c ../../drivers/display.h ../../drivers/ledmat.h ../../drivers/test/system.h

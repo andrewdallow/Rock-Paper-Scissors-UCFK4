@@ -1,6 +1,6 @@
 /** @file    RPS_shapes.h
     @author  fontgen
-    @date    07 Oct 2014
+    @date    08 Oct 2014
 
     @defgroup RPS_shapes  This is a 5x7 set of Rock, Paper, Scissors shapes
 
@@ -105,7 +105,7 @@ static font_t RPS_shapes =
         /* @  */
         0x00, 0x00, 0x00, 0x00, 0x00, 
         /* A  */
-        0x00, 0x00, 0x00, 0x00, 0x00, 
+        0xff, 0xff, 0xff, 0xff, 0x07, 
         /* B  */
         0x00, 0x00, 0x00, 0x00, 0x00, 
         /* C  */
