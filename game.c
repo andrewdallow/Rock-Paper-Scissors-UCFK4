@@ -6,6 +6,9 @@
 
 #define PACER_RATE 500
 
+
+/** Main function initialises required modules and
+ * run tasks within the pacer loop */
 int main (void)
 {
 	

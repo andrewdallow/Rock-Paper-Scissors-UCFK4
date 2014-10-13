@@ -20,29 +20,33 @@ char player2_choice = 0;
 uint8_t is_game_over = 0;
 uint8_t chosen = 0;
 
+
+/** Initialises tingl module, sets font, mode=scroll,
+ * and scroll speed and displays the start message */
 void game_init (void)
 {
+	char messages[] = {"Press start", "Play again?", "Waiting", "Win"
+				"Draw", "Lose"};
 	char* start_msg = "Press start";
 	tinygl_init (LOOP_RATE);      
     tinygl_font_set (&font5x7_1);
-    //tinygl_font_set (&font3x5_1);
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL); 
-    //tinygl_text_dir_set (TINYGL_TEXT_DIR_ROTATE);   
     tinygl_text_speed_set (MESSAGE_RATE);
     
     tinygl_text (start_msg);   
 }
 
+/** resets players choices for a new game */
 void restart_game(void)
 {
 	player1_choice = 0;
 	player2_choice = 0;			
 	is_game_over = 0;
 	chosen = 0;
-	tinygl_text ("Play again?");
+	tinygl_text (restart_msg);
 }
 
-
+/** sets each players choice */
 void run_game(void)
 {
 	if (chosen && player1_choice == '\0') 
@@ -51,7 +55,7 @@ void run_game(void)
 		if (navswitch_push_event_p (NAVSWITCH_PUSH))
 		{
 			player1_choice = get_choice();	
-			tinygl_text ("Waiting");
+			tinygl_text (waiting_msg);
 		}
 	}
 		
@@ -67,7 +71,7 @@ void run_game(void)
 }
 
 
-
+/** decides who wins the game based on the selections made*/
 void make_decision(void)
 {
 	// Make decision on who wins
@@ -101,6 +105,7 @@ void make_decision(void)
 	}
 }
 
+/** send each players choice to their partner's device */
 void send_choices(void)
 {
 	//P1 chosen, send to P2
