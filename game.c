@@ -15,13 +15,7 @@
 /* Define Pacer rate in Hz */
 #define PACER_RATE 500
 
-<<<<<<< HEAD
-
-/** Main function initialises required modules and
- * run tasks within the pacer loop */
-=======
 /* Run the main loop of the game */
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
 int main (void)
 {
 	//Initialise system and game.
@@ -41,11 +35,7 @@ int main (void)
 		navswitch_update ();
         run_game();		
 		
-<<<<<<< HEAD
-		send_choices();
-=======
 		//communicate_choices();
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
 		
 		make_decision();
     }

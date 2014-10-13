@@ -1,5 +1,5 @@
 /**  @file   run.c
-     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: ??
+     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: 53440575
      @date   11 Oct 2014
      @brief  Implements a simple game of Rock, Paper, Scissors. 
  */
@@ -14,8 +14,8 @@
 
 #include "selection.h"
 #include "run.h"
-
-/* This module implements a 2-player version of a simple Rock, Paper, 
+	
+/** This module implements a 2-player version of a simple Rock, Paper, 
  * Scissors program. Players choose between rock, paper, and scissors 
  * and win based on the following rules:
  * 1) Rock beats Scissors.
@@ -24,25 +24,15 @@
  * The game ends when a winner is decided. 
  * */
 
-// Define Pacer rate in Hz
+/** Define Pacer rate in Hz */
 #define PACER_RATE 500
-#define LOOP_RATE 500
 #define MESSAGE_RATE 15
 
-<<<<<<< HEAD
-=======
-// The 3 possible choices of Rock, Paper, and Scissors. 
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
+/** The 3 possible choices of Rock, Paper, and Scissors.  */
 #define ROCK 'R'
 #define PAPER 'P'
 #define SCISSORS 'S'
 
-<<<<<<< HEAD
-char player1_choice = 0;
-char player2_choice = 0;
-uint8_t is_game_over = 0;
-uint8_t chosen = 0;
-=======
 // Possible outcomes
 #define WIN "WIN"
 #define LOSE "LOSE"
@@ -62,61 +52,22 @@ static char player2_choice = '\0';
 
 static uint8_t is_game_over = FALSE;
 static uint8_t choose = FALSE;
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
 
 
-/** Initialises tingl module, sets font, mode=scroll,
- * and scroll speed and displays the start message */
 void game_init (void)
-<<<<<<< HEAD
-{
-	char messages[] = {"Press start", "Play again?", "Waiting", "Win"
-				"Draw", "Lose"};
-	char* start_msg = "Press start";
-	tinygl_init (LOOP_RATE);      
-=======
 {	
 	// Initialise tingygl
 	tinygl_init (PACER_RATE);      
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
     tinygl_font_set (&font5x7_1);
-    tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL); 
+    tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
     tinygl_text_speed_set (MESSAGE_RATE);
     
-<<<<<<< HEAD
-    tinygl_text (start_msg);   
-=======
     // Set start message
     tinygl_text (START_MESSAGE);
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
 }
 
-/** resets players choices for a new game */
 void restart_game(void)
 {
-<<<<<<< HEAD
-	player1_choice = 0;
-	player2_choice = 0;			
-	is_game_over = 0;
-	chosen = 0;
-	tinygl_text (restart_msg);
-}
-
-/** sets each players choice */
-void run_game(void)
-{
-	if (chosen && player1_choice == '\0') 
-    {
-		get_choice();
-		if (navswitch_push_event_p (NAVSWITCH_PUSH))
-		{
-			player1_choice = get_choice();	
-			tinygl_text (waiting_msg);
-		}
-	}
-		
-	if (navswitch_push_event_p (NAVSWITCH_PUSH) && !chosen)
-=======
 	player1_choice = '\0';
 	player2_choice = '\0';			
 	is_game_over = FALSE;
@@ -143,9 +94,8 @@ void run_game(void)
 	
 	// Allow choose when button is pushed.
 	if (navswitch_push_event_p (NAVSWITCH_PUSH) && !choose)
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
 	{
-		chosen = !chosen;
+		choose =!choose;
 	}
 		
 	// Restart game.	
@@ -156,38 +106,6 @@ void run_game(void)
 }
 
 
-<<<<<<< HEAD
-/** decides who wins the game based on the selections made*/
-void make_decision(void)
-{
-	// Make decision on who wins
-	if (player1_choice != 0 && player2_choice != 0 && !is_game_over)
-	{
-		if (player1_choice == player2_choice)
-		{
-			tinygl_text ("Draw"); 
-			is_game_over = 1;			
-		} 
-		else if (player1_choice == ROCK && player2_choice == SCISSORS)
-		{
-			tinygl_text ("Win"); 
-			is_game_over = 1;				
-		} 
-		else if (player1_choice == SCISSORS && player2_choice == PAPER)
-		{
-			tinygl_text ("Win");
-			is_game_over = 1;			
-		} 
-		else if (player1_choice == PAPER && player2_choice == ROCK) 
-		{
-			tinygl_text ("Win");
-			is_game_over = 1;				
-		} 
-		else 
-		{
-			tinygl_text ("Lose");
-			is_game_over = 1;
-=======
 void make_decision(void)
 {
 	// Make decision on who wins
@@ -224,13 +142,10 @@ void make_decision(void)
 				tinygl_text (LOSE);
 				is_game_over = TRUE;
 			}
->>>>>>> 362867cab8b7937b626575b0dba3f52b13706b86
 		}
-	}
 }
 
-/** send each players choice to their partner's device */
-void send_choices(void)
+void communicate_choices(void)
 {
 	//P1 chosen, send to P2
 	if (player1_choice != '\0' && !is_game_over) 
