@@ -156,6 +156,12 @@ void communicate_choices(void)
 	// Get P2's choice if sent
 	if (player2_choice == '\0' && ir_uart_read_ready_p () && !is_game_over)
 	{
-		player2_choice = ir_uart_getc ();			 
+		
+		char character = ir_uart_getc ();	
+		
+		if (character == ROCK || character == PAPER || character == SCISSORS)
+		{
+			player2_choice = character;
+		}		 
 	}
 }

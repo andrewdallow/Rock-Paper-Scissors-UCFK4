@@ -7,6 +7,7 @@
 
 #include "navswitch.h"
 #include "tinygl.h"
+#include "RPS_shapes.h"
 
 #define ROCK 'R'
 #define PAPER 'P'
