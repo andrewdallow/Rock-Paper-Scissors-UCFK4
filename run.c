@@ -72,7 +72,6 @@ void restart_game(void)
 	player2_choice = '\0';			
 	is_game_over = FALSE;
 	choose = FALSE;
-	
 	// Ask to play gane again
 	tinygl_text (REPLAY_MESSAGE);
 }
@@ -145,16 +144,14 @@ void make_decision(void)
 		}
 }
 
+uint8_t clock = 0;
+
 void communicate_choices(void)
 {
-	//P1 chosen, send to P2
-	if (player1_choice != '\0' && !is_game_over) 
-	{
-		ir_uart_putc (player1_choice);
-	}
+	
 	
 	// Get P2's choice if sent
-	if (player2_choice == '\0' && ir_uart_read_ready_p () && !is_game_over)
+	if (player2_choice == '\0' && ir_uart_read_ready_p () && !is_game_over && clock)
 	{
 		
 		char character = ir_uart_getc ();	
@@ -162,6 +159,14 @@ void communicate_choices(void)
 		if (character == ROCK || character == PAPER || character == SCISSORS)
 		{
 			player2_choice = character;
+			clock = !clock;
 		}		 
+	}
+	
+	//P1 chosen, send to P2
+	if (player1_choice != '\0' && !is_game_over && !clock) 
+	{
+		ir_uart_putc (player1_choice);
+		clock = !clock;
 	}
 }

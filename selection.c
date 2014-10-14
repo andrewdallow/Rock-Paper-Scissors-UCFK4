@@ -13,8 +13,8 @@
 #define PAPER 'P'
 #define SCISSORS 'S'
 
-static uint8_t option = 0;
 
+static char character = 'R';
 /** read character into buffer and display
  * text to screen */
 void display_character (char character)
@@ -25,53 +25,30 @@ void display_character (char character)
     tinygl_text (buffer);
 }
 
-/** Cycles through the options Paper, Rock Sizzors
- * and any navswitch option */
 char get_choice(void) 
-{			
-	tinygl_font_set (&RPS_shapes);
-	char disp_char = 0;
-	if (navswitch_push_event_p (NAVSWITCH_NORTH)){
-		option++;
-		if(option == 3)
-		{
-			option = 0;
-		}
+{	
+	//tinygl_font_set (&RPS_shapes);
+	//tinygl_font_set (&font5x7_1);
+		
+		
+	if (navswitch_push_event_p (NAVSWITCH_NORTH))
+	{
+		character = ROCK;
 	}
-	if (navswitch_push_event_p (NAVSWITCH_SOUTH))
-		option++;
-		if(option == 3)
-		{
-			option = 0;
-		}
-	
-	if (navswitch_push_event_p (NAVSWITCH_EAST))
-		option++;
-		if(option == 3)
-		{
-			option = 0 ;
-		}
 
 	if (navswitch_push_event_p (NAVSWITCH_WEST))
-		option++;
-		if(option == 3)
-		{
-			option = 0;
-		}		
-		
-		if(option == 0)
-		{
-			disp_char = PAPER;
-		}
-		else if (option == 1)
-		{
-			disp_char = ROCK;
-		}
-		else if (option == 2)
-		{
-			disp_char = SCISSORS;
-		}		
-	display_character (disp_char);
+	{
+		character = PAPER;
+	}
 
-	return disp_char;
+	if (navswitch_push_event_p (NAVSWITCH_SOUTH))
+	{
+		character = SCISSORS;
+	}
+	
+	display_character (character);
+
+	return character;
+	
+
 }
