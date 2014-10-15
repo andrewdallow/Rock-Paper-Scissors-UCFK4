@@ -12,10 +12,10 @@
 
 #include "run.h"
 
-/* Run the main loop of the game */
+/** Run the main loop of the game */
 int main (void)
 {
-    //Initialise system and game.
+    /** Initialise system and game. */
     system_init ();
     navswitch_init ();
     pacer_init (PACER_RATE);
@@ -23,7 +23,7 @@ int main (void)
 
     game_init ();
 
-    // Main loop of game
+    /** Main loop of game */
     while (1)
     {
         pacer_wait ();
@@ -33,7 +33,5 @@ int main (void)
 
         run_game();
     }
-
-
     return 0;
 }

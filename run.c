@@ -51,7 +51,7 @@ void restart_game (void)
     player1_choice = '\0';
     player2_choice = '\0';
     isGameOver = FALSE;
-    // Ask to play gane again
+    /** Ask to play gane again */
     tinygl_text (REPLAY_MESSAGE);
 }
 
@@ -80,35 +80,35 @@ void set_players (void)
 /** Make decision on who wins. */
 void make_decision (void)
 {
-    // Make decision on who wins
+    /** Make decision on who wins */
     if (player1_choice != '\0' && player2_choice != '\0' && !isGameOver)
     {
-        // P1 and P2 have the same choice
+        /** P1 and P2 have the same choice */
         if (player1_choice == player2_choice)
         {
             tinygl_text (DRAW);
             isGameOver = TRUE;
         }
-        // Rock Beats Scissors
+        /** Rock Beats Scissors */
         else if (player1_choice == ROCK && player2_choice == SCISSORS)
         {
             tinygl_text (WIN);
             isGameOver = TRUE;
         }
-        // Scissors beats Paper
+        /** Scissors beats Paper */
         else if (player1_choice == SCISSORS && player2_choice == PAPER)
         {
             tinygl_text (WIN);
             isGameOver = TRUE;
         }
 
-        // Paper beats Rock
+        /** Paper beats Rock */
         else if (player1_choice == PAPER && player2_choice == ROCK)
         {
             tinygl_text (WIN);
             isGameOver = TRUE;
         }
-        // Any other choice is a Lose.
+        /** Any other choice is a Lose. */
         else
         {
             tinygl_text (LOSE);
@@ -153,13 +153,13 @@ char decode_message (char message)
 /** Send and receive player choices. */
 void communicate_choices (void)
 {
-    //P1 chosen, send to P2
+    /** P1 chosen, send to P2 */
     if (player1_choice != '\0' && !isGameOver)
     {
         ir_uart_putc (encode_message (player1_choice));
     }
 
-    // Get P2's choice if sent
+    /**  Get P2's choice if sent */
     if (player2_choice == '\0' && !isGameOver && ir_uart_read_ready_p())
     {
         char choice;
@@ -177,7 +177,7 @@ void communicate_choices (void)
 /** Run the game */
 void run_game(void)
 {
-    // Players make choice when players have been chosen.
+    /** Players make choice when players have been chosen. */
     if (player_num != NO_PLAYER && player1_choice == '\0')
     {
         get_choice();
@@ -189,7 +189,7 @@ void run_game(void)
         }
     }
 
-    // Restart game if over.
+    /** Restart game if over. */
     if (navswitch_push_event_p (NAVSWITCH_PUSH) && isGameOver)
     {
         restart_game ();
