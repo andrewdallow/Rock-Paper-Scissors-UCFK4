@@ -13,9 +13,9 @@
 #define PAPER 'P'
 #define SCISSORS 'S'
 
-char character[3] = {ROCK, PAPER, SCISSORS};
-uint8_t option = 0;
-uint8_t num_choices = 3;
+static char character[3] = {ROCK, PAPER, SCISSORS};
+static uint8_t option = 0;
+static uint8_t num_choices = 3;
 
 /** read character into buffer and display
  * text to screen */  
