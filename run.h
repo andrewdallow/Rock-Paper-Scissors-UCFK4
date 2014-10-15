@@ -3,7 +3,7 @@
      @date   11 Oct 2014
      @brief  interface for a simple game of Rock, Paper, Scissors.
  */
- 
+
 #ifndef RUN_H
 #define RUN_H
 

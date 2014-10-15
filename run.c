@@ -58,8 +58,8 @@ void restart_game (void)
 /** Set player depending on who started the game. */
 void set_players (void)
 {
-	uint8_t isNoPlayer = player_num == NO_PLAYER;
-	
+    uint8_t isNoPlayer = player_num == NO_PLAYER;
+
     if (isNoPlayer && ir_uart_read_ready_p ())
     {
         uint8_t player;
@@ -81,40 +81,40 @@ void set_players (void)
 void make_decision (void)
 {
     // Make decision on who wins
-	if (player1_choice != '\0' && player2_choice != '\0' && !isGameOver)
-	{
-		// P1 and P2 have the same choice
-		if (player1_choice == player2_choice)
-		{
-			tinygl_text (DRAW);
-			isGameOver = TRUE;
-		}
-		// Rock Beats Scissors
-		else if (player1_choice == ROCK && player2_choice == SCISSORS)
-		{
-			tinygl_text (WIN);
-			isGameOver = TRUE;
-		}
-		// Scissors beats Paper
-		else if (player1_choice == SCISSORS && player2_choice == PAPER)
-		{
-			tinygl_text (WIN);
-			isGameOver = TRUE;
-		}
+    if (player1_choice != '\0' && player2_choice != '\0' && !isGameOver)
+    {
+        // P1 and P2 have the same choice
+        if (player1_choice == player2_choice)
+        {
+            tinygl_text (DRAW);
+            isGameOver = TRUE;
+        }
+        // Rock Beats Scissors
+        else if (player1_choice == ROCK && player2_choice == SCISSORS)
+        {
+            tinygl_text (WIN);
+            isGameOver = TRUE;
+        }
+        // Scissors beats Paper
+        else if (player1_choice == SCISSORS && player2_choice == PAPER)
+        {
+            tinygl_text (WIN);
+            isGameOver = TRUE;
+        }
 
-		// Paper beats Rock
-		else if (player1_choice == PAPER && player2_choice == ROCK)
-		{
-			tinygl_text (WIN);
-			isGameOver = TRUE;
-		}
-		// Any other choice is a Lose.
-		else
-		{
-			tinygl_text (LOSE);
-			isGameOver = TRUE;
-		}
-	}
+        // Paper beats Rock
+        else if (player1_choice == PAPER && player2_choice == ROCK)
+        {
+            tinygl_text (WIN);
+            isGameOver = TRUE;
+        }
+        // Any other choice is a Lose.
+        else
+        {
+            tinygl_text (LOSE);
+            isGameOver = TRUE;
+        }
+    }
 }
 
 /** Encode a message to be sent. */
@@ -168,7 +168,7 @@ void communicate_choices (void)
 
         if (choice == ROCK || choice == PAPER || choice == SCISSORS)
         {
-            player2_choice = character;
+            player2_choice = choice;
         }
     }
 
