@@ -69,7 +69,7 @@
 
 // Player encoding/decoding values
 #define PLAYER1_CODE 5;
-#define PLAYER2_CODE 10;
+#define PLAYER2_CODE 11;
 
 
 #include "system.h"

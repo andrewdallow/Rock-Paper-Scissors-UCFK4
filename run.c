@@ -30,6 +30,7 @@ static char player2_choice = '\0';
 
 static uint8_t isGameOver = FALSE;
 static uint8_t player_num = NO_PLAYER;
+static uint8_t transmit = FALSE;
 
 
 /** Initialise the game */
@@ -150,17 +151,13 @@ char decode_message (char message)
     return decoded;
 }
 
+
 /** Send and receive player choices. */
 void communicate_choices (void)
 {
-    /** P1 chosen, send to P2 */
-    if (player1_choice != '\0' && !isGameOver)
-    {
-        ir_uart_putc (encode_message (player1_choice));
-    }
-
-    /**  Get P2's choice if sent */
-    if (player2_choice == '\0' && !isGameOver && ir_uart_read_ready_p())
+	
+	    /**  Get P2's choice if sent */
+    if (!isGameOver && ir_uart_read_ready_p() && transmit)
     {
         char choice;
 
@@ -169,9 +166,16 @@ void communicate_choices (void)
         if (choice == ROCK || choice == PAPER || choice == SCISSORS)
         {
             player2_choice = choice;
+            transmit = FALSE;
         }
     }
-
+    
+    
+    /** P1 chosen, send to P2 */
+    if (player1_choice != '\0' && !isGameOver && transmit)
+    {
+        ir_uart_putc (encode_message (player1_choice));
+    }
 }
 
 /** Run the game */
@@ -185,6 +189,7 @@ void run_game(void)
         {
             player1_choice = get_choice();
             tinygl_font_set (&font5x7_1);
+            transmit = TRUE;
             tinygl_text (WAIT_MESSAGE);
         }
     }
