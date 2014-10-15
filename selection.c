@@ -33,6 +33,17 @@ char get_choice(void)
 
     if (navswitch_push_event_p (NAVSWITCH_NORTH))
     {
+		// do we need to reset option if it goes above
+		// the max value for the data type??
+		/** if (option < 255)
+			{
+			  option = (option + 1) % num_choices;
+			}
+			else
+			{
+				option = 0;
+			}
+				*/
         option = (option + 1) % num_choices;
     }
 
@@ -41,9 +52,9 @@ char get_choice(void)
         if (option != 0)
         {
             option = (option - 1) % num_choices;
-
-        } else {
-
+        } 
+        else 
+        {
             option = 2;
         }
     }
