@@ -7,6 +7,71 @@
 #ifndef RUN_H
 #define RUN_H
 
+/** Define Pacer rate in Hz */
+#ifndef PACER_RATE
+#define PACER_RATE 200
+#endif
+#ifndef MESSAGE_RATE
+#define MESSAGE_RATE 15
+#endif
+
+/** The 3 possible choices of Rock, Paper, and Scissors.  */
+#ifndef ROCK
+#define ROCK 'R'
+#endif
+#ifndef PAPER
+#define PAPER 'P'
+#endif
+#ifndef SCISSORS
+#define SCISSORS 'S'
+#endif
+
+// Possible outcomes
+#ifndef WIN
+#define WIN "WIN"
+#endif
+#ifndef LOSE
+#define LOSE "LOSE"
+#endif
+#ifndef DRAW
+#define DRAW "DRAW"
+#endif
+
+// Text Messaages
+#ifndef REPLAY_MESSAGE
+#define REPLAY_MESSAGE "Play again?"
+#endif
+#ifndef START_MESSAGE
+#define START_MESSAGE "Press start"
+#endif
+#ifndef WAIT_MESSAGE
+#define WAIT_MESSAGE "Waiting"
+#endif
+
+#ifndef TRUE
+#define TRUE 1
+#endif
+#ifndef FALSE
+#define FALSE 0
+#endif
+
+
+// Players
+#ifndef NO_PLAYER
+#define NO_PLAYER 0
+#endif
+#ifndef PLAYER_1
+#define PLAYER_1 1
+#endif
+#ifndef PLAYER_2
+#define PLAYER_2 2
+#endif
+
+// Player encoding/decoding values
+#define PLAYER1_CODE 5;
+#define PLAYER2_CODE 10;
+
+
 #include "system.h"
 
 /** Initialise the game. */

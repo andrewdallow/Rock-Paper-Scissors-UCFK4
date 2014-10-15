@@ -8,10 +8,7 @@
 #include "navswitch.h"
 #include "tinygl.h"
 #include "RPS_shapes.h"
-
-#define ROCK 'R'
-#define PAPER 'P'
-#define SCISSORS 'S'
+#include "selection.h"
 
 static char character[3] = {ROCK, PAPER, SCISSORS};
 static uint8_t option = 0;

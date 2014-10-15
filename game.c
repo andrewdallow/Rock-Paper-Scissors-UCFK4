@@ -12,9 +12,6 @@
 
 #include "run.h"
 
-/* Define Pacer rate in Hz */
-#define PACER_RATE 200
-
 /* Run the main loop of the game */
 int main (void)
 {

@@ -8,6 +8,16 @@
 #ifndef SELECTION_H
 #define SELECTION_H
 
+#ifndef ROCK
+#define ROCK 'R'
+#endif
+#ifndef PAPER
+#define PAPER 'P'
+#endif
+#ifndef SCISSORS
+#define SCISSORS 'S'
+#endif
+
 #include "system.h"
 
 /** Display the given character on the LED matix */
