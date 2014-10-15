@@ -1,5 +1,5 @@
 /**  @file   game.c
-     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: ??
+     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: 53440575
      @date   11 Oct 2014
      @brief  A simple 2 player game of Rock, Paper, Sissors. 
  */
@@ -13,7 +13,7 @@
 #include "run.h"
 
 /* Define Pacer rate in Hz */
-#define PACER_RATE 500
+#define PACER_RATE 200
 
 /* Run the main loop of the game */
 int main (void)
@@ -33,11 +33,8 @@ int main (void)
 		
         tinygl_update ();
 		navswitch_update ();
-        run_game();		
 		
-		communicate_choices();
-		
-		make_decision();
+        run_game();			
     }
     
 

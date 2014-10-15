@@ -25,7 +25,7 @@
  * */
 
 /** Define Pacer rate in Hz */
-#define PACER_RATE 500
+#define PACER_RATE 200
 #define MESSAGE_RATE 15
 
 /** The 3 possible choices of Rock, Paper, and Scissors.  */
@@ -46,14 +46,24 @@
 #define TRUE 1
 #define FALSE 0
 
+// Players
+#define NO_PLAYER 0
+#define PLAYER_1 1
+#define PLAYER_2 2
+
+// Player encoding/decoding values
+#define PLAYER1_CODE 5;
+#define PLAYER2_CODE 10;
+
 // Player Choices
 static char player1_choice = '\0';
 static char player2_choice = '\0';
 
 static uint8_t is_game_over = FALSE;
-static uint8_t choose = FALSE;
+static uint8_t player_num = NO_PLAYER;
 
 
+/** Initialise the game */
 void game_init (void)
 {	
 	// Initialise tingygl
@@ -61,50 +71,42 @@ void game_init (void)
     tinygl_font_set (&font5x7_1);
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
     tinygl_text_speed_set (MESSAGE_RATE);
-    
+	
     // Set start message
     tinygl_text (START_MESSAGE);
 }
 
-void restart_game(void)
+/** reset game varibles */
+void restart_game (void)
 {
 	player1_choice = '\0';
 	player2_choice = '\0';			
 	is_game_over = FALSE;
-	choose = FALSE;
 	// Ask to play gane again
 	tinygl_text (REPLAY_MESSAGE);
 }
 
-
-void run_game(void)
-{	
-	// Player1 may choose if they have not yet.
-	if (choose && player1_choice == '\0') 
-	{
-		get_choice();
-		if (navswitch_push_event_p (NAVSWITCH_PUSH))
-		{
-			player1_choice = get_choice();
-			tinygl_font_set (&font5x7_1);	
-			tinygl_text (WAIT_MESSAGE);
-		}
-	}
-	
-	// Allow choose when button is pushed.
-	if (navswitch_push_event_p (NAVSWITCH_PUSH) && !choose)
-	{
-		choose =!choose;
-	}
+/** Set player depending on who started the game. */
+void set_players (void) 
+{
+	if (player_num == NO_PLAYER && ir_uart_read_ready_p ())
+	{		
+		uint8_t player;
+				
+		player = ir_uart_getc ();
 		
-	// Restart game.	
-	if (navswitch_push_event_p (NAVSWITCH_PUSH) && is_game_over) 
+		if (player == PLAYER_2)
+		{				
+			player_num = player;
+		}			 
+	} else if (navswitch_push_event_p (NAVSWITCH_PUSH) && player_num == NO_PLAYER)
 	{
-		restart_game();
+		player_num = PLAYER_1;
+		ir_uart_putc (PLAYER_2);
 	}
 }
 
-
+/** Make decision on who wins. */
 void make_decision(void)
 {
 	// Make decision on who wins
@@ -114,6 +116,7 @@ void make_decision(void)
 			if (player1_choice == player2_choice)
 			{
 				tinygl_text (DRAW); 
+				
 				is_game_over = TRUE;				
 			} 
 			// Rock Beats Scissors
@@ -144,29 +147,87 @@ void make_decision(void)
 		}
 }
 
-uint8_t clock = 0;
-
-void communicate_choices(void)
+/** Encode a message to be sent. */
+char encode_message (char message)
 {
+	char encoded = '\0';
+	if (player_num == PLAYER_1)
+	{
+		encoded = message + PLAYER1_CODE; 
+		
+	} else if (player_num == PLAYER_2)
+	{
+		encoded = message + PLAYER2_CODE;
+	}
 	
+	return encoded;
+}
+
+/** Decode a message that was received. */
+char decode_message (char message)
+{
+	char decoded = '\0';
+	
+	if (player_num == PLAYER_1)
+	{
+		decoded = message - PLAYER2_CODE;
+		
+	} else if (player_num == PLAYER_2)
+	{
+		decoded = message - PLAYER1_CODE;
+	}
+	
+	return decoded;
+}
+
+/** Send and receive player choices. */
+void communicate_choices(void)
+{		
+	//P1 chosen, send to P2
+	if (player1_choice != '\0' && !is_game_over) 
+	{
+		ir_uart_putc (encode_message (player1_choice));
+	}
 	
 	// Get P2's choice if sent
-	if (player2_choice == '\0' && ir_uart_read_ready_p () && !is_game_over && clock)
-	{
-		
-		char character = ir_uart_getc ();	
+	if (player2_choice == '\0' && !is_game_over && ir_uart_read_ready_p ())
+	{		
+		char character;
+				
+		character = decode_message (ir_uart_getc ());
 		
 		if (character == ROCK || character == PAPER || character == SCISSORS)
-		{
+		{				
 			player2_choice = character;
-			clock = !clock;
-		}		 
+		}			 
+	}
+
+}
+
+/** Run the game */
+void run_game(void)
+{		
+	// Players make choice when players have been chosen. 
+	if (player_num != NO_PLAYER && player1_choice == '\0') 
+	{
+		get_choice();
+		if (navswitch_push_event_p (NAVSWITCH_PUSH))
+		{
+			player1_choice = get_choice();
+			tinygl_font_set (&font5x7_1);	
+			tinygl_text (WAIT_MESSAGE); 			
+		}
+	}
+		
+	// Restart game if over.	
+	if (navswitch_push_event_p (NAVSWITCH_PUSH) && is_game_over) 
+	{
+		restart_game ();
 	}
 	
-	//P1 chosen, send to P2
-	if (player1_choice != '\0' && !is_game_over && !clock) 
-	{
-		ir_uart_putc (player1_choice);
-		clock = !clock;
-	}
+	set_players ();	
+	
+	communicate_choices();
+		
+	make_decision();
 }

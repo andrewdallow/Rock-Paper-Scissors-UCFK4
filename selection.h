@@ -1,5 +1,5 @@
 /**  @file   selection.h
-     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: ??
+     @author Andrew Dallow - ID: 56999204, Dan Orr - ID: 53440575
      @date   11 Oct 2014
      @brief  Interface for Maping Navswitch buttons to Rock, Paper, or 
 			 Scissors symbols and displays them on the led matrix. 
