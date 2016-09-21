@@ -1,8 +1,8 @@
-#Embedded Programming Assignment#
+# Embedded Programming Assignment #
 
-##Rock, Paper, Scissors Game##
+## Rock, Paper, Scissors Game ##
 
 Authors:
 ---------
-Andrew Dallow
+Andrew Dallow,
 Dan Orr
